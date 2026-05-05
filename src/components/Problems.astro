@@ -1,0 +1,88 @@
+---
+const problems = [
+  {
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="2"/><path d="M16 9v8M16 22v1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+    title: "Sitio web desactualizado o lento",
+    desc: "Tus clientes lo visitan una vez y no vuelven.",
+  },
+  {
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 26V16a10 10 0 0120 0v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 26h20M12 26v-4a4 4 0 018 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    title: "No generás leads ni contactos",
+    desc: "Tu web existe pero no convierte a nadie.",
+  },
+  {
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="5" y="5" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/><rect x="17" y="5" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/><rect x="5" y="17" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/><rect x="17" y="17" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2"/></svg>`,
+    title: "Redes sociales inconsistentes",
+    desc: "Tu marca no se ve igual en todos lados.",
+  },
+  {
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l10 4v8c0 6-4.4 10.4-10 12C10.4 26.4 6 22 6 16V8l10-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 16l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    title: "Seguridad descuidada",
+    desc: "Un hackeo o caída puede costarte clientes y reputación.",
+  },
+];
+---
+<section class="problems" id="problemas">
+  <div class="container">
+    <div class="problems-header reveal">
+      <span class="section-tag">¿Te suena familiar?</span>
+      <h2 class="section-title">¿Te identificás con alguno de estos problemas?</h2>
+    </div>
+    <div class="problems-grid">
+      {problems.map((p, i) => (
+        <article class="problem-card reveal" style={`transition-delay: ${i * 0.1}s`}>
+          <div class="problem-icon" set:html={p.icon} />
+          <h3 class="problem-title">{p.title}</h3>
+          <p class="problem-desc">{p.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .problems {
+    padding: 5rem 0;
+    background: var(--color-gray-soft);
+  }
+  .problems-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .problem-card {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    border: 1px solid var(--color-gray-mid);
+    transition: var(--transition), box-shadow var(--transition);
+  }
+  .problem-card:hover {
+    box-shadow: 0 8px 30px rgba(108,76,241,0.1);
+    border-color: var(--color-purple-light);
+    transform: translateY(-3px);
+  }
+  .problem-icon {
+    color: var(--color-purple);
+    margin-bottom: 1.1rem;
+  }
+  .problem-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-navy);
+  }
+  .problem-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 600px) {
+    .problems-grid { grid-template-columns: 1fr; }
+  }
+</style>

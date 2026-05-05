@@ -1,0 +1,119 @@
+---
+const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%20web%20gratis";
+---
+<nav id="nav">
+  <div class="nav-inner container">
+    <!-- Logo -->
+    <a href="/" class="nav-logo">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="36" height="36" rx="9" fill="#6C4CF1"/>
+        <path d="M9 18l6 6 12-12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="nav-brand">Checkbog</span>
+    </a>
+
+    <!-- Links -->
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#planes">Planes</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+
+    <!-- CTA -->
+    <a href="#contacto" class="btn btn-yellow nav-cta">Revisar mi web</a>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile" id="nav-mobile">
+    <ul>
+      <li><a href="#servicios" class="nav-mobile-link">Servicios</a></li>
+      <li><a href="#planes" class="nav-mobile-link">Planes</a></li>
+      <li><a href="#proceso" class="nav-mobile-link">Proceso</a></li>
+      <li><a href="#contacto" class="nav-mobile-link">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="btn btn-yellow">Revisar mi web</a>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const mobile = document.getElementById('nav-mobile');
+  toggle?.addEventListener('click', () => mobile?.classList.toggle('open'));
+  document.querySelectorAll('.nav-mobile-link').forEach(link =>
+    link.addEventListener('click', () => mobile?.classList.remove('open'))
+  );
+</script>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(11, 31, 58, 0.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 1.5rem;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+  .nav-brand {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    margin-left: auto;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-cta { padding: 0.5rem 1.2rem; font-size: 0.88rem; margin-left: 0.5rem; }
+  .nav-toggle { display: none; color: #fff; }
+
+  .nav-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem 1.25rem 1.5rem;
+    background: var(--color-navy);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile ul { display: flex; flex-direction: column; gap: 0.75rem; }
+  .nav-mobile a { color: rgba(255,255,255,0.85); font-weight: 600; font-size: 1rem; }
+
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+  }
+</style>

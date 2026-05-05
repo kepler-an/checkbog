@@ -1,0 +1,116 @@
+---
+const without = [
+  "Web desactualizada o rota",
+  "Sin saber si funciona o no",
+  "Redes que no reflejan tu marca",
+  "Sin respaldo ante un ataque",
+  "Proveedores distintos sin coordinación",
+  "Perdés oportunidades sin darte cuenta",
+];
+const with_ = [
+  "Web moderna, rápida y en línea",
+  "Monitoreo y alertas en tiempo real",
+  "Imagen consistente en todos los canales",
+  "Seguridad básica y backups automáticos",
+  "Un solo equipo que lo maneja todo",
+  "Presencia que trabaja para vos 24/7",
+];
+---
+<section class="diff">
+  <div class="container">
+    <div class="diff-header reveal">
+      <span class="section-tag">Por qué Checkbog</span>
+      <h2 class="section-title">La mayoría tiene piezas sueltas. Checkbog las conecta.</h2>
+    </div>
+    <div class="diff-grid reveal">
+      <!-- Sin Checkbog -->
+      <div class="diff-col diff-col--bad">
+        <div class="diff-col-header">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="2"/><path d="M7 7l8 8M15 7l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Sin Checkbog
+        </div>
+        <ul>
+          {without.map(item => (
+            <li>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <!-- Con Checkbog -->
+      <div class="diff-col diff-col--good">
+        <div class="diff-col-header">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="2"/><path d="M6 11l4 4 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Con Checkbog
+        </div>
+        <ul>
+          {with_.map(item => (
+            <li>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .diff {
+    padding: 5rem 0;
+    background: var(--color-gray-soft);
+  }
+  .diff-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .diff-col {
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    border: 1px solid;
+  }
+  .diff-col--bad {
+    background: #fff5f5;
+    border-color: #fecaca;
+  }
+  .diff-col--good {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+  }
+  .diff-col-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .diff-col--bad .diff-col-header { color: #dc2626; }
+  .diff-col--good .diff-col-header { color: #16a34a; }
+  .diff-col ul { display: flex; flex-direction: column; gap: 0.85rem; }
+  .diff-col li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .diff-col li svg { flex-shrink: 0; margin-top: 2px; }
+  .diff-col--bad li { color: #7f1d1d; }
+  .diff-col--bad li svg { color: #ef4444; }
+  .diff-col--good li { color: #14532d; }
+  .diff-col--good li svg { color: #22c55e; }
+
+  @media (max-width: 600px) {
+    .diff-grid { grid-template-columns: 1fr; }
+  }
+</style>

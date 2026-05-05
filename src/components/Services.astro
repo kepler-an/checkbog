@@ -1,0 +1,106 @@
+---
+const services = [
+  {
+    badge: "NÚCLEO",
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="3" y="5" width="26" height="18" rx="3" stroke="currentColor" stroke-width="2"/><path d="M10 27h12M16 23v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    title: "Sitio Web",
+    desc: "Landing o sitio multi-página diseñado para convertir.",
+  },
+  {
+    badge: null,
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16A10 10 0 1026 16 10 10 0 006 16z" stroke="currentColor" stroke-width="2"/><path d="M16 10v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+    title: "Mantenimiento",
+    desc: "Tu web siempre funcionando con revisiones y backups.",
+  },
+  {
+    badge: null,
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4l11 4.5v8C27 23 22 27.5 16 29 10 27.5 5 23 5 16.5v-8L16 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 16.5l3.5 3.5 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    title: "Seguridad",
+    desc: "Protección básica y monitoreo continuo.",
+  },
+  {
+    badge: null,
+    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="5" y="8" width="22" height="16" rx="3" stroke="currentColor" stroke-width="2"/><path d="M5 13h22" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10.5" r="1" fill="currentColor"/><circle cx="13" cy="10.5" r="1" fill="currentColor"/><circle cx="17" cy="10.5" r="1" fill="currentColor"/></svg>`,
+    title: "Redes Sociales",
+    desc: "Alineación visual en Instagram y Facebook.",
+  },
+];
+---
+<section class="services" id="servicios">
+  <div class="container">
+    <div class="services-header reveal">
+      <span class="section-tag">Lo que incluye</span>
+      <h2 class="section-title">¿Qué incluye?</h2>
+    </div>
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <article class="service-card reveal" style={`transition-delay: ${i * 0.1}s`}>
+          {s.badge && <span class="service-badge">{s.badge}</span>}
+          <div class="service-icon" set:html={s.icon} />
+          <h3 class="service-title">{s.title}</h3>
+          <p class="service-desc">{s.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    padding: 5rem 0;
+    background: var(--color-white);
+  }
+  .services-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    position: relative;
+    background: var(--color-gray-soft);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    border: 1px solid var(--color-gray-mid);
+    transition: var(--transition), box-shadow var(--transition);
+  }
+  .service-card:hover {
+    border-color: var(--color-purple);
+    box-shadow: 0 8px 30px rgba(108,76,241,0.1);
+    transform: translateY(-3px);
+  }
+  .service-badge {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: var(--color-purple);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+  }
+  .service-icon {
+    color: var(--color-purple);
+    margin-bottom: 1rem;
+  }
+  .service-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 0.5rem;
+  }
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+  }
+
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

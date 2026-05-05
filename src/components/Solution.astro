@@ -1,0 +1,98 @@
+---
+---
+<section class="solution" id="solucion">
+  <div class="container">
+    <div class="solution-header reveal">
+      <span class="section-tag" style="color: var(--color-purple-light)">La solución</span>
+      <h2 class="section-title" style="color: white">Checkbog se encarga de todo</h2>
+      <p class="section-subtitle" style="color: rgba(255,255,255,0.65); margin: 0 auto">
+        Una sola presencia digital conectada — web, seguridad y redes sociales trabajando juntos para que tu negocio crezca sin interrupciones.
+      </p>
+    </div>
+
+    <div class="solution-flow reveal">
+      <div class="sol-pill">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Web
+      </div>
+      <div class="sol-connector">
+        <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><path d="M1 6h22M18 1l5 5-5 5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="sol-pill">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 4v5c0 5.25-3.9 9.74-9 11-5.1-1.26-9-5.75-9-11V6l9-4z"/></svg>
+        Seguridad
+      </div>
+      <div class="sol-connector">
+        <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><path d="M1 6h22M18 1l5 5-5 5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="sol-pill">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        Redes
+      </div>
+      <div class="sol-equals">=</div>
+      <div class="sol-result">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17 5.8 21.3l2.4-7.4L2 9.4h7.6L12 2z"/></svg>
+        Presencia conectada
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .solution {
+    background: var(--color-navy-light);
+    padding: 5rem 0;
+  }
+  .solution-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .solution-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .sol-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.3rem;
+    border-radius: 999px;
+    background: rgba(108,76,241,0.18);
+    border: 1px solid rgba(108,76,241,0.45);
+    color: var(--color-purple-light);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .sol-connector { color: rgba(255,255,255,0.25); display: flex; align-items: center; }
+  .sol-equals {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.3);
+    margin: 0 0.5rem;
+  }
+  .sol-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 999px;
+    background: var(--color-purple);
+    color: white;
+    font-weight: 800;
+    font-size: 1rem;
+    box-shadow: 0 4px 20px rgba(108,76,241,0.4);
+  }
+
+  @media (max-width: 640px) {
+    .solution-flow {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .sol-connector { transform: rotate(90deg); }
+    .sol-equals { display: none; }
+    .sol-result { margin-top: 0.5rem; }
+  }
+</style>

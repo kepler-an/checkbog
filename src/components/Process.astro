@@ -1,0 +1,144 @@
+---
+const steps = [
+  {
+    num: "01",
+    title: "Auditoría",
+    desc: "Revisamos tu presencia digital actual sin costo — web, redes y seguridad.",
+  },
+  {
+    num: "02",
+    title: "Propuesta",
+    desc: "Te presentamos un plan claro con lo que necesitás y lo que cuesta.",
+  },
+  {
+    num: "03",
+    title: "Implementación",
+    desc: "Ejecutamos los cambios y mejoras acordadas, sin interrumpir tu negocio.",
+  },
+  {
+    num: "04",
+    title: "Soporte",
+    desc: "Seguimiento continuo, actualizaciones y respuesta rápida ante cualquier problema.",
+  },
+];
+---
+<section class="process" id="proceso">
+  <div class="container">
+    <div class="process-header reveal">
+      <span class="section-tag">Paso a paso</span>
+      <h2 class="section-title">¿Cómo funciona?</h2>
+    </div>
+    <div class="process-steps">
+      {steps.map((step, i) => (
+        <>
+          <div class="process-step reveal" style={`transition-delay: ${i * 0.12}s`}>
+            <div class="process-num">{step.num}</div>
+            <div class="process-content">
+              <h3 class="process-title">{step.title}</h3>
+              <p class="process-desc">{step.desc}</p>
+            </div>
+          </div>
+          {i < steps.length - 1 && (
+            <div class="process-connector" aria-hidden="true"></div>
+          )}
+        </>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding: 5rem 0;
+    background: var(--color-gray-soft);
+  }
+  .process-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .process-steps {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .process-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  .process-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-purple);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(108,76,241,0.3);
+  }
+  .process-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin-bottom: 0.5rem;
+  }
+  .process-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+  }
+  .process-connector {
+    flex-shrink: 0;
+    height: 2px;
+    width: 40px;
+    margin-top: 27px;
+    background-image: repeating-linear-gradient(
+      to right,
+      #C7CADB 0px,
+      #C7CADB 5px,
+      transparent 5px,
+      transparent 9px
+    );
+  }
+
+  @media (max-width: 700px) {
+    .process-steps {
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .process-step {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 0;
+      width: 100%;
+      max-width: 380px;
+    }
+    .process-num { margin-bottom: 0; flex-shrink: 0; }
+    .process-connector {
+      width: 2px;
+      height: 36px;
+      margin-top: 0;
+      margin-left: 27px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        #C7CADB 0px,
+        #C7CADB 5px,
+        transparent 5px,
+        transparent 9px
+      );
+    }
+  }
+</style>
