@@ -332,8 +332,50 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
       margin: 0 auto;
     }
   }
+
   @media (max-width: 600px) {
-    .addon-impl { flex-direction: column; align-items: flex-start; }
-    .addon-impl-price { font-size: 1.4rem; }
+    /* Wrapper */
+    .addons { padding: 1rem; gap: 0.85rem; }
+
+    /* Implementación inicial */
+    .addon-impl {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 1rem;
+    }
+    .addon-impl-left { width: 100%; }
+    .addon-impl-price {
+      align-self: stretch;
+      text-align: center;
+      font-size: 1.2rem;
+      background: rgba(108,76,241,0.07);
+      border: 1px solid rgba(108,76,241,0.18);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+    }
+    .addon-impl-domain { font-size: 0.85rem; }
+
+    /* Otros servicios — pasan a lista vertical con precio alineado a la derecha */
+    .addon-others {
+      padding: 1rem;
+      text-align: left;
+      align-items: flex-start;
+    }
+    .addons-list {
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+    }
+    .addons-list span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--color-gray-mid);
+      font-size: 0.9rem;
+    }
+    .addons-list span:last-child { border-bottom: none; }
   }
 </style>
