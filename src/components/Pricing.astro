@@ -2,73 +2,55 @@
 const plans = [
   {
     name: "Web Esencial",
-    setup: "$250–$400",
-    monthly: "$15–$30 / mes",
+    monthly: "₡15.000 / mes + IVA",
     highlighted: false,
     cta: "Empezar con Esencial",
     ctaClass: "btn-outline",
     includes: [
       "Landing page (5 secciones)",
       "Diseño responsive",
-      "Botón WhatsApp",
-      "Formulario básico de contacto",
-      "SEO básico",
+      "SEO básico y alta en Google",
+      "Certificado SSL (Sitio seguro)",
       "1 revisión por mes",
       "Backup mensual",
-    ],
-    excludes: [
-      "Cambios frecuentes",
-      "Nuevas secciones",
-      "Gestión de redes sociales",
-      "Soporte prioritario",
+      "Soporte por correo electrónico",
     ],
     response: "48–72 horas",
   },
   {
     name: "Presencia Profesional",
-    setup: "$400–$700",
-    monthly: "$40–$80 / mes",
+    monthly: "₡30.000 / mes + IVA",
     highlighted: true,
     cta: "Elegir Profesional",
     ctaClass: "btn-yellow",
     includes: [
-      "Hasta 5 páginas",
       "Diseño personalizado",
-      "Optimización de conversión",
       "SEO + analítica web",
+      "Conexión e integración con Facebook e Instagram (no incluye posts mensuales)",
+      "Configuración de respuestas automáticas (Facebook Messenger y Instagram y formularios web)",
+      "Hasta 2 cuentas de correo corporativo (50 GB c/u)",
       "3 cambios al mes",
-      "Soporte técnico",
+      "Actualizaciones de seguridad continuas",
       "Backups automáticos",
       "Monitoreo de disponibilidad",
-      "Seguridad básica",
-    ],
-    excludes: [
-      "Funcionalidades complejas",
-      "Gestión activa de redes",
-      "Cambios ilimitados",
+      "Soporte técnico por WhatsApp",
     ],
     response: "24–48 horas",
   },
   {
     name: "Presencia Completa",
-    setup: "$700–$1,200",
-    monthly: "$80–$150 / mes",
+    monthly: "₡50.000 / mes + IVA",
     highlighted: false,
     cta: "Elegir Completo",
     ctaClass: "btn-outline",
     includes: [
       "Todo lo del plan Profesional",
-      "Redes sociales (Instagram & Facebook)",
-      "Optimización de perfiles",
-      "Asesoría en contenido",
-      "Hasta 4 publicaciones / mes",
-      "Soporte prioritario",
+      "Hasta 5 cuentas de correo corporativo (50 GB c/u)",
+      "Optimización de perfiles en redes sociales",
+      "Asesoría en contenido digital",
+      "4 publicaciones / mes con diseño incluido",
+      "Soporte prioritario (WhatsApp + llamadas)",
       "Revisión mensual de rendimiento",
-    ],
-    excludes: [
-      "Estrategia de marketing paga",
-      "Pauta publicitaria",
-      "Producción audiovisual profesional",
     ],
     response: "Menos de 24 horas",
   },
@@ -90,7 +72,6 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
           {plan.highlighted && <div class="plan-badge">RECOMENDADO</div>}
           <div class="plan-header">
             <h3 class="plan-name">{plan.name}</h3>
-            <div class="plan-setup">Setup: {plan.setup}</div>
             <div class="plan-monthly">{plan.monthly}</div>
           </div>
           <div class="plan-body">
@@ -100,17 +81,6 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
                 {plan.includes.map(item => (
                   <li>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div class="plan-section">
-              <div class="plan-section-title">No incluye</div>
-              <ul class="plan-list plan-list--no">
-                {plan.excludes.map(item => (
-                  <li>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     {item}
                   </li>
                 ))}
@@ -131,11 +101,30 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
     <!-- Add-ons -->
     <div class="addons reveal">
       <p class="addons-title">Servicios adicionales</p>
-      <div class="addons-list">
-        <span>Página extra <strong>$50–$100</strong></span>
-        <span>Cambio adicional <strong>$10–$25</strong></span>
-        <span>Urgencias <strong>+$20</strong></span>
-        <span>Rediseño parcial <strong>desde $150</strong></span>
+
+      <!-- Implementación destacada -->
+      <div class="addon-impl">
+        <div class="addon-impl-left">
+          <span class="addon-impl-badge">Pago único</span>
+          <p class="addon-impl-name">Implementación inicial</p>
+          <p class="addon-impl-desc">Creación, configuración e instalación inicial de tu sitio — se cobra una sola vez al comenzar.</p>
+          <p class="addon-impl-domain">
+            <svg width="13" height="13" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.5C10 1.5 7 5.5 7 10s3 8.5 3 8.5M10 1.5C10 1.5 13 5.5 13 10s-3 8.5-3 8.5M1.5 10h17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            ¿Sin dominio? Lo gestionamos — <strong>primer año gratis</strong>, luego renovación anual con costo.
+          </p>
+        </div>
+        <div class="addon-impl-price">₡70.000–₡100.000 + IVA</div>
+      </div>
+
+      <!-- Otros servicios -->
+      <div class="addon-others">
+        <p class="addon-others-title">Otros servicios adicionales</p>
+        <div class="addons-list">
+          <span>Página extra <strong>₡15.000–₡25.000 + IVA</strong></span>
+          <span>Cambio adicional <strong>₡5.000 + IVA</strong></span>
+          <span>Urgencias <strong>+₡8.000 + IVA</strong></span>
+          <span>Rediseño parcial <strong>desde ₡15.000 + IVA</strong></span>
+        </div>
       </div>
     </div>
   </div>
@@ -191,11 +180,6 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
     color: var(--color-navy);
     margin-bottom: 0.75rem;
   }
-  .plan-setup {
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-    margin-bottom: 0.2rem;
-  }
   .plan-monthly {
     font-size: 1.4rem;
     font-weight: 800;
@@ -221,8 +205,6 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
   .plan-list li svg { flex-shrink: 0; margin-top: 2px; }
   .plan-list--yes li { color: var(--color-navy); }
   .plan-list--yes li svg { color: #16a34a; }
-  .plan-list--no li { color: var(--color-text-muted); }
-  .plan-list--no li svg { color: #ef4444; }
   .plan-response {
     display: flex;
     align-items: center;
@@ -236,7 +218,7 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
   .plan-footer { padding: 1.25rem 1.75rem 1.75rem; }
   .plan-cta { width: 100%; justify-content: center; }
 
-  /* Addons */
+  /* ── Addons wrapper ── */
   .addons {
     margin-top: 2.5rem;
     padding: 1.5rem 2rem;
@@ -245,9 +227,8 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
     border: 1px solid var(--color-gray-mid);
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
     align-items: center;
-    text-align: center;
   }
   .addons-title {
     font-size: 0.75rem;
@@ -256,13 +237,92 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
     text-transform: uppercase;
     color: var(--color-text-muted);
   }
+
+  /* ── Implementación inicial ── */
+  .addon-impl {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-purple-light);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.4rem;
+    width: 100%;
+  }
+  .addon-impl-left { display: flex; flex-direction: column; gap: 0.3rem; }
+  .addon-impl-badge {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-purple);
+    background: rgba(108,76,241,0.08);
+    border: 1px solid rgba(108,76,241,0.2);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    width: fit-content;
+  }
+  .addon-impl-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+  .addon-impl-desc {
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.5;
+  }
+  .addon-impl-domain {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: #4b5563;
+    background: rgba(108,76,241,0.06);
+    border: 1px dashed rgba(108,76,241,0.25);
+    border-radius: 6px;
+    padding: 0.45rem 0.65rem;
+    line-height: 1.45;
+    margin-top: 0.25rem;
+  }
+  .addon-impl-domain svg { flex-shrink: 0; margin-top: 2px; color: var(--color-purple); }
+  .addon-impl-domain strong { color: var(--color-navy); }
+  .addon-impl-price {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-purple);
+    white-space: nowrap;
+  }
+
+  /* ── Otros servicios adicionales ── */
+  .addon-others {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-mid);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.4rem;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .addon-others-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4b5563;
+  }
   .addons-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem 2rem;
     justify-content: center;
   }
-  .addons-list span { font-size: 0.85rem; color: var(--color-text-muted); }
+  .addons-list span { font-size: 1rem; color: #4b5563; }
   .addons-list strong { color: var(--color-navy); }
 
   @media (max-width: 900px) {
@@ -271,5 +331,9 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
       max-width: 480px;
       margin: 0 auto;
     }
+  }
+  @media (max-width: 600px) {
+    .addon-impl { flex-direction: column; align-items: flex-start; }
+    .addon-impl-price { font-size: 1.4rem; }
   }
 </style>
