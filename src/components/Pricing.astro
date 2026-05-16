@@ -2,7 +2,7 @@
 const plans = [
   {
     name: "Web Esencial",
-    monthly: "₡15.000 / mes + IVA",
+    monthly: "₡15.000 / mes",
     highlighted: false,
     cta: "Empezar con Esencial",
     ctaClass: "btn-outline",
@@ -19,7 +19,7 @@ const plans = [
   },
   {
     name: "Presencia Profesional",
-    monthly: "₡30.000 / mes + IVA",
+    monthly: "₡30.000 / mes",
     highlighted: true,
     cta: "Elegir Profesional",
     ctaClass: "btn-yellow",
@@ -39,7 +39,7 @@ const plans = [
   },
   {
     name: "Presencia Completa",
-    monthly: "₡50.000 / mes + IVA",
+    monthly: "₡50.000 / mes",
     highlighted: false,
     cta: "Elegir Completo",
     ctaClass: "btn-outline",
@@ -72,7 +72,7 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
           {plan.highlighted && <div class="plan-badge">RECOMENDADO</div>}
           <div class="plan-header">
             <h3 class="plan-name">{plan.name}</h3>
-            <div class="plan-monthly">{plan.monthly}</div>
+            <div class="plan-monthly">{plan.monthly} <span class="tax">+ IVI</span></div>
           </div>
           <div class="plan-body">
             <div class="plan-section">
@@ -113,17 +113,17 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
             ¿Sin dominio? Lo gestionamos — <strong>primer año gratis</strong>, luego renovación anual con costo.
           </p>
         </div>
-        <div class="addon-impl-price">₡70.000–₡100.000 + IVA</div>
+        <div class="addon-impl-price">₡70.000–₡100.000 <span class="tax">+ IVI</span></div>
       </div>
 
       <!-- Otros servicios -->
       <div class="addon-others">
         <p class="addon-others-title">Otros servicios adicionales</p>
         <div class="addons-list">
-          <span>Página extra <strong>₡15.000–₡25.000 + IVA</strong></span>
-          <span>Cambio adicional <strong>₡5.000 + IVA</strong></span>
-          <span>Urgencias <strong>+₡8.000 + IVA</strong></span>
-          <span>Rediseño parcial <strong>desde ₡15.000 + IVA</strong></span>
+          <span>Página extra <strong>₡15.000–₡25.000 <span class="tax">+ IVI</span></strong></span>
+          <span>Cambio adicional <strong>₡5.000 <span class="tax">+ IVI</span></strong></span>
+          <span>Urgencias <strong>+₡8.000 <span class="tax">+ IVI</span></strong></span>
+          <span>Rediseño parcial <strong>desde ₡15.000 <span class="tax">+ IVI</span></strong></span>
         </div>
       </div>
     </div>
@@ -324,6 +324,12 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
   }
   .addons-list span { font-size: 1rem; color: #4b5563; }
   .addons-list strong { color: var(--color-navy); }
+  .tax {
+    font-size: 0.7em;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    vertical-align: middle;
+  }
 
   @media (max-width: 900px) {
     .pricing-grid {
