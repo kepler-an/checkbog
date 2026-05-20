@@ -137,17 +137,34 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
     position: relative;
     background: var(--color-gray-soft);
     border-radius: var(--radius-md);
-    border: 1px solid var(--color-gray-mid);
+    border: 1px solid rgba(108, 76, 241, 0.25);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    box-shadow:
+      0 0 18px rgba(108, 76, 241, 0.14),
+      0 0 40px rgba(108, 76, 241, 0.07);
     transition: var(--transition), box-shadow var(--transition);
   }
-  .plan-card:hover { box-shadow: 0 8px 30px rgba(108,76,241,0.1); transform: translateY(-3px); }
+  .plan-card:hover {
+    box-shadow:
+      0 0 26px rgba(108, 76, 241, 0.24),
+      0 0 55px rgba(108, 76, 241, 0.12);
+    transform: translateY(-3px);
+  }
   .plan-card--highlighted {
-    border: 2px solid var(--color-purple);
+    border: 2px solid rgba(108, 76, 241, 0.55);
     background: var(--color-white);
-    box-shadow: 0 10px 40px rgba(108,76,241,0.15);
+    box-shadow:
+      0 0 30px rgba(108, 76, 241, 0.38),
+      0 0 65px rgba(108, 76, 241, 0.20),
+      0 0 100px rgba(108, 76, 241, 0.10);
+  }
+  .plan-card--highlighted:hover {
+    box-shadow:
+      0 0 40px rgba(108, 76, 241, 0.50),
+      0 0 80px rgba(108, 76, 241, 0.26),
+      0 0 120px rgba(108, 76, 241, 0.13);
   }
   .plan-badge {
     background: var(--color-purple);

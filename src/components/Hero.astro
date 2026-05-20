@@ -4,8 +4,13 @@
 
 <section class="hero">
   <div class="hero-glow"></div>
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-blob aurora-blob--1"></div>
+    <div class="aurora-blob aurora-blob--2"></div>
+    <div class="aurora-blob aurora-blob--3"></div>
+  </div>
   <div class="container hero-inner">
-    <div class="hero-text reveal">
+    <div class="hero-text">
       <p class="hero-eyebrow">Presencia digital profesional</p>
       <h1 class="hero-headline">¿Web desactualizada o necesitas una?</h1>
       <p class="hero-sub">
@@ -17,7 +22,7 @@
       </div>
     </div>
 
-    <div class="hero-visual reveal">
+    <div class="hero-visual">
       <div class="problems-panel">
         <p class="problems-panel-label">¿Te suena familiar?</p>
         <div class="problems-panel-grid">
@@ -130,6 +135,63 @@
     overflow: hidden;
     padding: 120px 0 80px;
   }
+  /* ── Aurora blobs ── */
+  .aurora {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .aurora-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+    opacity: 0.55;
+  }
+  .aurora-blob--1 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(108,76,241,0.5) 0%, transparent 70%);
+    top: -120px;
+    right: -80px;
+    animation: aurora1 18s ease-in-out infinite alternate;
+  }
+  .aurora-blob--2 {
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(139,111,245,0.4) 0%, transparent 70%);
+    bottom: -60px;
+    left: -100px;
+    animation: aurora2 14s ease-in-out infinite alternate;
+  }
+  .aurora-blob--3 {
+    width: 340px;
+    height: 340px;
+    background: radial-gradient(circle, rgba(79,70,229,0.45) 0%, transparent 70%);
+    top: 40%;
+    left: 35%;
+    animation: aurora3 10s ease-in-out infinite alternate;
+  }
+  @keyframes aurora1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    30%  { transform: translate(-80px, 60px) scale(1.1); }
+    60%  { transform: translate(40px, 100px) scale(0.95); }
+    100% { transform: translate(-40px, 30px) scale(1.05); }
+  }
+  @keyframes aurora2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    40%  { transform: translate(100px, -70px) scale(1.15); }
+    70%  { transform: translate(60px, -120px) scale(0.9); }
+    100% { transform: translate(30px, -50px) scale(1.08); }
+  }
+  @keyframes aurora3 {
+    0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50%  { transform: translate(-60px, -80px) scale(1.2) rotate(20deg); }
+    100% { transform: translate(80px, 40px) scale(0.85) rotate(-15deg); }
+  }
+
   .hero-glow {
     position: absolute;
     top: -160px;
@@ -148,7 +210,20 @@
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: center;
+    position: relative;
+    z-index: 1;
   }
+  /* ── Entry animations ── */
+  /* ── Entry animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
   .hero-eyebrow {
     font-size: 0.8rem;
     font-weight: 1000;
@@ -156,29 +231,59 @@
     text-transform: uppercase;
     color: var(--color-purple-light);
     margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
   }
   .hero-headline {
     font-size: clamp(1.8rem, 4.5vw, 3rem);
     font-weight: 800;
-    color: var(--color-white);
     line-height: 1.15;
     margin-bottom: 1.25rem;
+    background: linear-gradient(105deg, #ffffff 30%, #d8d0fb 48%, #b8a9f7 55%, #ffffff 72%);
+    background-size: 260% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.32s forwards, shimmer 8s ease-in-out 1.25s infinite;
   }
   .hero-sub {
     font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2rem;
     max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
   }
   .hero-actions {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.66s forwards;
   }
   .hero-visual {
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.38s forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow,
+    .hero-headline,
+    .hero-sub,
+    .hero-actions,
+    .hero-visual {
+      opacity: 1;
+      animation: none;
+    }
+    .hero-headline {
+      background: none;
+      -webkit-text-fill-color: var(--color-white);
+      color: var(--color-white);
+    }
   }
 
   .problems-panel {
