@@ -10,20 +10,24 @@
       </p>
     </div>
 
-    <div class="solution-flow reveal">
+    <div class="solution-flow">
       <div class="sol-pill">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         Web
       </div>
       <div class="sol-connector">
-        <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><path d="M1 6h22M18 1l5 5-5 5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
+          <path class="connector-path" d="M1 6h22M18 1l5 5-5 5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
       <div class="sol-pill">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l9 4v5c0 5.25-3.9 9.74-9 11-5.1-1.26-9-5.75-9-11V6l9-4z"/></svg>
         Seguridad
       </div>
       <div class="sol-connector">
-        <svg width="28" height="12" viewBox="0 0 28 12" fill="none"><path d="M1 6h22M18 1l5 5-5 5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
+          <path class="connector-path" d="M1 6h22M18 1l5 5-5 5" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
       <div class="sol-pill">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
@@ -53,6 +57,7 @@
     justify-content: center;
     gap: 0.75rem;
     flex-wrap: wrap;
+    perspective: 800px;
   }
   .sol-pill {
     display: inline-flex;
@@ -66,7 +71,11 @@
     font-weight: 700;
     font-size: 0.95rem;
   }
-  .sol-connector { color: rgba(255,255,255,0.25); display: flex; align-items: center; }
+  .sol-connector {
+    color: rgba(255,255,255,0.25);
+    display: flex;
+    align-items: center;
+  }
   .sol-equals {
     font-size: 1.8rem;
     font-weight: 300;
@@ -86,6 +95,128 @@
     box-shadow: 0 4px 20px rgba(108,76,241,0.4);
   }
 
+  /* ── SVG connector paths ── */
+  .connector-path {
+    transition: stroke-dashoffset 0.4s ease;
+  }
+
+  /* ── Keyframes ── */
+  @keyframes flip-in {
+    from {
+      opacity: 0;
+      transform: perspective(700px) rotateX(-70deg) translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: perspective(700px) rotateX(0deg) translateY(0px);
+    }
+  }
+
+  /* Three distinct float rhythms — different duration + phase gives organic feel */
+  @keyframes float-a {
+    0%, 100% { transform: perspective(700px) translateY(0px)  rotateY(2deg); }
+    50%       { transform: perspective(700px) translateY(-8px) rotateY(-3deg); }
+  }
+  @keyframes float-b {
+    0%, 100% { transform: perspective(700px) translateY(-3px) rotateY(-2deg); }
+    50%       { transform: perspective(700px) translateY(5px)  rotateY(3deg); }
+  }
+  @keyframes float-c {
+    0%, 100% { transform: perspective(700px) translateY(2px)  rotateY(1deg); }
+    50%       { transform: perspective(700px) translateY(-7px) rotateY(-4deg); }
+  }
+
+  /* Result pill: float + pulsing glow combined */
+  @keyframes result-float {
+    0%, 100% {
+      transform: perspective(700px) translateY(0px) scale(1) rotateY(1deg);
+      box-shadow: 0 4px 20px rgba(108,76,241,0.4);
+    }
+    50% {
+      transform: perspective(700px) translateY(-6px) scale(1.04) rotateY(-2deg);
+      box-shadow: 0 8px 44px rgba(108,76,241,0.82), 0 0 64px rgba(108,76,241,0.28);
+    }
+  }
+
+  /* ── JS dormant state ── */
+  /*
+    .solution-flow direct children:
+      :nth-child(1) = sol-pill  Web
+      :nth-child(2) = sol-connector
+      :nth-child(3) = sol-pill  Seguridad
+      :nth-child(4) = sol-connector
+      :nth-child(5) = sol-pill  Redes
+      :nth-child(6) = sol-equals
+      :nth-child(7) = sol-result
+  */
+  .solution--js .solution-flow > :nth-child(1),
+  .solution--js .solution-flow > :nth-child(3),
+  .solution--js .solution-flow > :nth-child(5),
+  .solution--js .solution-flow > :nth-child(6),
+  .solution--js .solution-flow > :nth-child(7) {
+    opacity: 0;
+  }
+  .solution--js .connector-path {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+  }
+
+  /* ── Revealed: entry + idle animations ── */
+
+  /* Web pill */
+  .solution--revealed .solution-flow > :nth-child(1) {
+    animation:
+      flip-in 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0ms    both,
+      float-a 4.5s  ease-in-out                        1.9s   infinite;
+  }
+
+  /* Connector 1 → draw after Web appears */
+  .solution--revealed .solution-flow > :nth-child(2) .connector-path {
+    stroke-dashoffset: 0;
+    transition-delay: 0.38s;
+  }
+
+  /* Seguridad pill */
+  .solution--revealed .solution-flow > :nth-child(3) {
+    animation:
+      flip-in 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 360ms  both,
+      float-b 5.2s  ease-in-out                        1.9s   infinite;
+  }
+
+  /* Connector 2 → draw after Seguridad appears */
+  .solution--revealed .solution-flow > :nth-child(4) .connector-path {
+    stroke-dashoffset: 0;
+    transition-delay: 0.72s;
+  }
+
+  /* Redes pill */
+  .solution--revealed .solution-flow > :nth-child(5) {
+    animation:
+      flip-in 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 720ms  both,
+      float-c 3.9s  ease-in-out                        1.9s   infinite;
+  }
+
+  /* Equals sign — simple fade, no float needed */
+  .solution--revealed .solution-flow > :nth-child(6) {
+    animation: flip-in 0.5s ease 940ms both;
+  }
+
+  /* Presencia conectada — entry + combined float+glow */
+  .solution--revealed .solution-flow > :nth-child(7) {
+    animation:
+      flip-in      0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 1080ms both,
+      result-float 3.4s  ease-in-out                        2.0s   infinite;
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .solution--js .solution-flow > :nth-child(n) { opacity: 1; }
+    .solution--js .connector-path { stroke-dasharray: unset; stroke-dashoffset: unset; }
+    .solution--revealed .solution-flow > :nth-child(n) { animation: none; }
+    .solution--revealed .connector-path { transition: none; }
+  }
+
+  /* ── Mobile ── */
   @media (max-width: 640px) {
     .solution-flow {
       flex-direction: column;
@@ -94,5 +225,32 @@
     .sol-connector { transform: rotate(90deg); }
     .sol-equals { display: none; }
     .sol-result { margin-top: 0.5rem; }
+
+    /* Float vertical on mobile — reduce rotateY, use more translateY */
+    @keyframes float-a { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes float-b { 0%,100% { transform: translateY(-2px); } 50% { transform: translateY(5px); } }
+    @keyframes float-c { 0%,100% { transform: translateY(2px); } 50% { transform: translateY(-5px); } }
+    @keyframes result-float {
+      0%,100% { transform: translateY(0) scale(1); box-shadow: 0 4px 20px rgba(108,76,241,0.4); }
+      50%      { transform: translateY(-5px) scale(1.04); box-shadow: 0 8px 44px rgba(108,76,241,0.82); }
+    }
   }
 </style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('.solution');
+  if (section) {
+    section.classList.add('solution--js');
+
+    const obs = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      // Double rAF: browser must paint the dormant state before animating
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        section.classList.add('solution--revealed');
+      }));
+    }, { threshold: 0.15 });
+
+    obs.observe(section);
+  }
+</script>

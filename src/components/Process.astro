@@ -32,7 +32,9 @@ const steps = [
       {steps.map((step, i) => (
         <>
           <div class="process-step reveal" style={`transition-delay: ${i * 0.12}s`}>
-            <div class="process-num">{step.num}</div>
+            <div class="process-num">
+              <span class="num-text" data-target={parseInt(step.num)}>{step.num}</span>
+            </div>
             <div class="process-content">
               <h3 class="process-title">{step.title}</h3>
               <p class="process-desc">{step.desc}</p>
@@ -63,6 +65,8 @@ const steps = [
     max-width: 960px;
     margin: 0 auto;
   }
+
+  /* ── Step ── */
   .process-step {
     flex: 1;
     display: flex;
@@ -72,6 +76,7 @@ const steps = [
     padding: 0 1rem;
   }
   .process-num {
+    position: relative;
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -85,6 +90,20 @@ const steps = [
     margin-bottom: 1.1rem;
     flex-shrink: 0;
     box-shadow: 0 4px 16px rgba(108,76,241,0.3);
+    transition:
+      transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  /* Ring ripple on activation */
+  .process-num::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(108, 76, 241, 0.75);
+    opacity: 0;
+    pointer-events: none;
   }
   .process-title {
     font-size: 1.05rem;
@@ -97,11 +116,15 @@ const steps = [
     color: var(--color-text-muted);
     line-height: 1.55;
   }
+
+  /* ── Connector ── */
   .process-connector {
+    position: relative;
     flex-shrink: 0;
     height: 2px;
     width: 40px;
     margin-top: 27px;
+    /* dashed track — always visible as guide rail */
     background-image: repeating-linear-gradient(
       to right,
       #C7CADB 0px,
@@ -109,8 +132,141 @@ const steps = [
       transparent 5px,
       transparent 9px
     );
+    overflow: visible;
+  }
+  /* Drawing line */
+  .process-connector::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0;
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: left;
+    width: 100%; height: 3px;
+    background: linear-gradient(to right, var(--color-purple), #a78bfa);
+    border-radius: 2px;
+    transition: transform 0.42s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  /* Traveling pulse dot */
+  .process-connector::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: -4px;
+    transform: translateY(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #c4b5fd;
+    box-shadow: 0 0 8px rgba(108,76,241,0.9), 0 0 18px rgba(108,76,241,0.5);
+    opacity: 0;
+    pointer-events: none;
   }
 
+  /* ── JS dormant state (prevents flash before trigger) ── */
+  .process--js .process-num {
+    transform: scale(0.72);
+    opacity: 0.22;
+  }
+
+  /* ── Revealed: sequential activation ── */
+
+  /* Step 01  (nth-child 1 of .process-steps) */
+  .process--revealed .process-steps > :nth-child(1) .process-num {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 4px 22px rgba(108,76,241,0.55);
+    transition-delay: 0.1s;
+  }
+  .process--revealed .process-steps > :nth-child(1) .process-num::before {
+    animation: ring-pop 0.65s ease-out 0.1s forwards;
+  }
+
+  /* Connector 01→02  (nth-child 2) */
+  .process--revealed .process-steps > :nth-child(2)::before {
+    transform: translateY(-50%) scaleX(1);
+    transition-delay: 0.42s;
+  }
+  .process--revealed .process-steps > :nth-child(2)::after {
+    animation: pulse-h 1.7s linear 0.84s infinite;
+  }
+
+  /* Step 02  (nth-child 3) */
+  .process--revealed .process-steps > :nth-child(3) .process-num {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 4px 22px rgba(108,76,241,0.55);
+    transition-delay: 0.92s;
+  }
+  .process--revealed .process-steps > :nth-child(3) .process-num::before {
+    animation: ring-pop 0.65s ease-out 0.92s forwards;
+  }
+
+  /* Connector 02→03  (nth-child 4) */
+  .process--revealed .process-steps > :nth-child(4)::before {
+    transform: translateY(-50%) scaleX(1);
+    transition-delay: 1.22s;
+  }
+  .process--revealed .process-steps > :nth-child(4)::after {
+    animation: pulse-h 1.7s linear 1.64s infinite;
+  }
+
+  /* Step 03  (nth-child 5) */
+  .process--revealed .process-steps > :nth-child(5) .process-num {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 4px 22px rgba(108,76,241,0.55);
+    transition-delay: 1.72s;
+  }
+  .process--revealed .process-steps > :nth-child(5) .process-num::before {
+    animation: ring-pop 0.65s ease-out 1.72s forwards;
+  }
+
+  /* Connector 03→04  (nth-child 6) */
+  .process--revealed .process-steps > :nth-child(6)::before {
+    transform: translateY(-50%) scaleX(1);
+    transition-delay: 2.02s;
+  }
+  .process--revealed .process-steps > :nth-child(6)::after {
+    animation: pulse-h 1.7s linear 2.44s infinite;
+  }
+
+  /* Step 04  (nth-child 7) */
+  .process--revealed .process-steps > :nth-child(7) .process-num {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 4px 22px rgba(108,76,241,0.55);
+    transition-delay: 2.52s;
+  }
+  .process--revealed .process-steps > :nth-child(7) .process-num::before {
+    animation: ring-pop 0.65s ease-out 2.52s forwards;
+  }
+
+  /* ── Keyframes ── */
+  @keyframes ring-pop {
+    0%   { transform: scale(0.82); opacity: 0.9; }
+    100% { transform: scale(1.7);  opacity: 0; }
+  }
+  @keyframes pulse-h {
+    0%   { left: -4px;              opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { left: calc(100% - 4px); opacity: 0; }
+  }
+  @keyframes pulse-v {
+    0%   { top: -4px;              opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { top: calc(100% - 4px); opacity: 0; }
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .process--js .process-num { transform: scale(1); opacity: 1; }
+    .process-num,
+    .process-connector::before { transition: none !important; }
+    .process-num::before,
+    .process-connector::after  { animation: none !important; }
+  }
+
+  /* ── Mobile ── */
   @media (max-width: 700px) {
     .process-steps {
       flex-direction: column;
@@ -127,6 +283,7 @@ const steps = [
       max-width: 380px;
     }
     .process-num { margin-bottom: 0; flex-shrink: 0; }
+
     .process-connector {
       width: 2px;
       height: 36px;
@@ -140,5 +297,73 @@ const steps = [
         transparent 9px
       );
     }
+    /* Vertical drawing line */
+    .process-connector::before {
+      top: 0; left: 50%;
+      transform: translateX(-50%) scaleY(0);
+      transform-origin: top;
+      width: 3px; height: 100%;
+    }
+    /* Pulse dot — centered on 2px track, travels downward */
+    .process-connector::after {
+      left: 50%; top: -4px;
+      transform: translateX(-50%);
+    }
+    /* Override horizontal scale with vertical */
+    .process--revealed .process-steps > :nth-child(2)::before {
+      transform: translateX(-50%) scaleY(1);
+    }
+    .process--revealed .process-steps > :nth-child(4)::before {
+      transform: translateX(-50%) scaleY(1);
+    }
+    .process--revealed .process-steps > :nth-child(6)::before {
+      transform: translateX(-50%) scaleY(1);
+    }
+    /* Switch to vertical pulse */
+    .process--revealed .process-steps > :nth-child(2)::after {
+      animation: pulse-v 1.7s linear 0.84s infinite;
+    }
+    .process--revealed .process-steps > :nth-child(4)::after {
+      animation: pulse-v 1.7s linear 1.64s infinite;
+    }
+    .process--revealed .process-steps > :nth-child(6)::after {
+      animation: pulse-v 1.7s linear 2.44s infinite;
+    }
   }
 </style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('.process');
+  if (section) {
+    section.classList.add('process--js');
+
+    const counterDelays = [100, 920, 1720, 2520];
+
+    const obs = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+
+      // Double rAF: browser must paint the dormant state before we reveal,
+      // otherwise the transition has no visible start point.
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        section.classList.add('process--revealed');
+
+        section.querySelectorAll<HTMLElement>('.num-text').forEach((el, i) => {
+          const target = parseInt(el.dataset.target ?? '0', 10);
+          setTimeout(() => {
+            const t0 = performance.now();
+            const dur = 480;
+            function tick(now: number) {
+              const p = Math.min((now - t0) / dur, 1);
+              el.textContent = String(Math.round(p * target)).padStart(2, '0');
+              if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+          }, counterDelays[i]);
+        });
+      }));
+    }, { threshold: 0.1 });
+
+    obs.observe(section);
+  }
+</script>

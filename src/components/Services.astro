@@ -53,7 +53,8 @@ const services = [
     </div>
     <div class="services-grid">
       {services.map((s, i) => (
-        <article class="service-card reveal" style={`transition-delay: ${i * 0.1}s`}>
+        <article class="service-card" data-index={i}>
+          <div class="glare" aria-hidden="true"></div>
           {s.badge && <span class="service-badge">{s.badge}</span>}
           <div class="service-icon" set:html={s.icon} />
           <h3 class="service-title">{s.title}</h3>
@@ -105,6 +106,66 @@ const services = [
     padding: 0.25rem 0.75rem;
   }
 
+  /* ── Alert keyframes ── */
+  @keyframes icon-bounce {
+    0%   { opacity: 0; transform: scale(0.4) rotate(-25deg); }
+    55%  { opacity: 1; transform: scale(1.18) rotate(8deg); }
+    75%  { transform: scale(0.93) rotate(-4deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  @keyframes word-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes body-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pill-pop {
+    from { opacity: 0; transform: translateX(-24px) scale(0.75); }
+    to   { opacity: 1; transform: translateX(0) scale(1); }
+  }
+  @keyframes pill-glow {
+    0%, 100% { box-shadow: none; border-color: rgba(255,209,102,0.3); }
+    50%       { box-shadow: 0 0 14px rgba(255,209,102,0.45), 0 0 28px rgba(255,209,102,0.15); border-color: rgba(255,209,102,0.7); }
+  }
+
+  /* Dormant states */
+  .alert--js .alert-icon { opacity: 0; }
+  .alert--js .alert-body { opacity: 0; }
+  .alert--js .alert-risks span { opacity: 0; }
+  .alert--js .alert-word {
+    display: inline-block;
+    opacity: 0;
+  }
+
+  /* Revealed animations */
+  .alert--revealed .alert-icon {
+    animation: icon-bounce 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0s both;
+  }
+  .alert--revealed .alert-word {
+    animation: word-up 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    /* animation-delay set per-word via JS */
+  }
+  .alert--revealed .alert-body {
+    animation: body-up 0.55s ease 0.58s both;
+  }
+  .alert--revealed .alert-risks span:nth-child(1) {
+    animation:
+      pill-pop  0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.76s both,
+      pill-glow 2.8s ease-in-out                        1.5s  infinite;
+  }
+  .alert--revealed .alert-risks span:nth-child(2) {
+    animation:
+      pill-pop  0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.92s both,
+      pill-glow 2.8s ease-in-out                        1.7s  infinite;
+  }
+  .alert--revealed .alert-risks span:nth-child(3) {
+    animation:
+      pill-pop  0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.08s both,
+      pill-glow 2.8s ease-in-out                        1.9s  infinite;
+  }
+
   @media (max-width: 600px) {
     .alert-inner { flex-direction: column; gap: 0.85rem; }
     .alert-headline { font-size: 1rem; }
@@ -124,6 +185,8 @@ const services = [
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
+
+  /* ── Service card ── */
   .service-card {
     position: relative;
     background: var(--color-gray-soft);
@@ -134,7 +197,10 @@ const services = [
       0 0 20px rgba(108, 76, 241, 0.22),
       0 0 50px rgba(108, 76, 241, 0.10),
       0 4px 16px rgba(108, 76, 241, 0.08);
-    transition: var(--transition), box-shadow var(--transition);
+    /* JS takes over hover transform; only animate box-shadow via CSS */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+    transform-style: preserve-3d;
   }
   .service-card:hover {
     border-color: rgba(108, 76, 241, 0.6);
@@ -142,8 +208,33 @@ const services = [
       0 0 30px rgba(108, 76, 241, 0.35),
       0 0 70px rgba(108, 76, 241, 0.18),
       0 8px 24px rgba(108, 76, 241, 0.12);
-    transform: translateY(-3px);
   }
+
+  /* Glare overlay */
+  .glare {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at var(--gx, 50%) var(--gy, 50%),
+      rgba(255, 255, 255, 0.14) 0%,
+      transparent 62%
+    );
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Keep card content above glare */
+  .service-badge,
+  .service-icon,
+  .service-title,
+  .service-desc {
+    position: relative;
+    z-index: 1;
+  }
+
   .service-badge {
     position: absolute;
     top: 1.25rem;
@@ -155,10 +246,17 @@ const services = [
     letter-spacing: 0.1em;
     padding: 0.25rem 0.6rem;
     border-radius: 999px;
+    z-index: 2;
   }
   .service-icon {
     color: var(--color-purple);
     margin-bottom: 1rem;
+  }
+  /* Icon paths start invisible for draw-in */
+  .services--js .service-icon path,
+  .services--js .service-icon rect,
+  .services--js .service-icon circle {
+    transition: stroke-dashoffset 0.7s ease;
   }
   .service-title {
     font-size: 1.1rem;
@@ -172,7 +270,156 @@ const services = [
     line-height: 1.55;
   }
 
+  /* ── Corner entry keyframes ── */
+  @keyframes enter-tl {
+    from { opacity: 0; transform: perspective(480px) translate3d(-70px, -70px, -160px) rotateX(38deg) rotateY(38deg) scale(0.78); }
+    to   { opacity: 1; transform: perspective(480px) translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1); }
+  }
+  @keyframes enter-tr {
+    from { opacity: 0; transform: perspective(480px) translate3d(70px, -70px, -160px) rotateX(38deg) rotateY(-38deg) scale(0.78); }
+    to   { opacity: 1; transform: perspective(480px) translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1); }
+  }
+  @keyframes enter-bl {
+    from { opacity: 0; transform: perspective(480px) translate3d(-70px, 70px, -160px) rotateX(-38deg) rotateY(38deg) scale(0.78); }
+    to   { opacity: 1; transform: perspective(480px) translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1); }
+  }
+  @keyframes enter-br {
+    from { opacity: 0; transform: perspective(480px) translate3d(70px, 70px, -160px) rotateX(-38deg) rotateY(-38deg) scale(0.78); }
+    to   { opacity: 1; transform: perspective(480px) translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1); }
+  }
+
+  /* Cards dormant */
+  .services--js .service-card { opacity: 0; }
+
+  /* Cards revealed */
+  .services--revealed .service-card[data-index="0"] {
+    animation: enter-tl 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0ms   both;
+  }
+  .services--revealed .service-card[data-index="1"] {
+    animation: enter-tr 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 280ms both;
+  }
+  .services--revealed .service-card[data-index="2"] {
+    animation: enter-bl 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 560ms both;
+  }
+  .services--revealed .service-card[data-index="3"] {
+    animation: enter-br 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 840ms both;
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .services--js .service-card { opacity: 1; }
+    .services--revealed .service-card { animation: none; }
+    .alert--js .alert-icon,
+    .alert--js .alert-body,
+    .alert--js .alert-risks span,
+    .alert--js .alert-word { opacity: 1; }
+    .alert--revealed .alert-icon,
+    .alert--revealed .alert-word,
+    .alert--revealed .alert-body,
+    .alert--revealed .alert-risks span { animation: none; }
+  }
+
   @media (max-width: 600px) {
     .services-grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  // ── Alert strip ───────────────────────────────────────────────
+  const alertEl = document.querySelector<HTMLElement>('.services-alert');
+  if (alertEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Split headline into per-word spans so each can animate independently
+    const headline = alertEl.querySelector<HTMLElement>('.alert-headline');
+    if (headline) {
+      const words = headline.textContent?.trim().split(' ') ?? [];
+      headline.innerHTML = words
+        .map(w => `<span class="alert-word">${w}</span>`)
+        .join(' ');
+    }
+
+    alertEl.classList.add('alert--js');
+
+    new IntersectionObserver((entries, obs) => {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        // Stagger each word's animation-delay before revealing
+        alertEl.querySelectorAll<HTMLElement>('.alert-word').forEach((span, i) => {
+          span.style.animationDelay = `${i * 52}ms`;
+        });
+        alertEl.classList.add('alert--revealed');
+      }));
+    }, { threshold: 0.2 }).observe(alertEl);
+  }
+
+  // ── Services cards ────────────────────────────────────────────
+  const section = document.querySelector<HTMLElement>('.services');
+  if (section && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    section.classList.add('services--js');
+
+    const cards = Array.from(section.querySelectorAll<HTMLElement>('.service-card'));
+
+    // Set up SVG icon draw-in
+    cards.forEach(card => {
+      card.querySelectorAll<SVGGeometryElement>(
+        '.service-icon path, .service-icon rect, .service-icon circle'
+      ).forEach(el => {
+        let len = 200;
+        try { len = el.getTotalLength(); } catch {}
+        el.style.strokeDasharray = String(len);
+        el.style.strokeDashoffset = String(len);
+      });
+    });
+
+    // Reveal on scroll
+    new IntersectionObserver((entries, obs) => {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        section.classList.add('services--revealed');
+
+        // Draw icons with per-card stagger
+        cards.forEach((card, i) => {
+          setTimeout(() => {
+            card.querySelectorAll<SVGGeometryElement>(
+              '.service-icon path, .service-icon rect, .service-icon circle'
+            ).forEach(el => {
+              el.style.strokeDashoffset = '0';
+            });
+          }, i * 120 + 300);
+        });
+      }));
+    }, { threshold: 0.1 }).observe(section);
+
+    // ── 3D tilt + glare on hover ────────────────────────────────
+    cards.forEach(card => {
+      const glare = card.querySelector<HTMLElement>('.glare')!;
+
+      card.addEventListener('mousemove', (e: MouseEvent) => {
+        const r   = card.getBoundingClientRect();
+        const dx  = (e.clientX - r.left  - r.width  / 2) / (r.width  / 2); // -1→1
+        const dy  = (e.clientY - r.top   - r.height / 2) / (r.height / 2); // -1→1
+
+        const rotY =  dx * 20;
+        const rotX = -dy * 15;
+
+        card.style.transition = 'transform 0.07s linear, box-shadow 0.3s ease, border-color 0.3s ease';
+        card.style.transform  = `perspective(480px) rotateY(${rotY}deg) rotateX(${rotX}deg) translateZ(20px) scale(1.02)`;
+
+        // Move glare radial to cursor position
+        const gx = ((dx + 1) / 2 * 100).toFixed(1);
+        const gy = ((dy + 1) / 2 * 100).toFixed(1);
+        glare.style.setProperty('--gx', `${gx}%`);
+        glare.style.setProperty('--gy', `${gy}%`);
+        glare.style.opacity = '1';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease';
+        card.style.transform  = '';
+        glare.style.opacity   = '0';
+      });
+    });
+  }
+</script>
