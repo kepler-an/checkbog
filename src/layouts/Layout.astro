@@ -7,10 +7,10 @@ export interface Props {
 }
 const {
   title = "Checkbog — Tu presencia digital, conectada y funcionando",
-  description = "Checkbog optimiza, mantiene y conecta tu presencia digital — web, seguridad y redes sociales para negocios locales en Costa Rica."
+  description = "Checkbog optimiza, mantiene y conecta tu presencia digital — diseño web, mantenimiento, seguridad y redes sociales para negocios que quieren crecer en línea."
 } = Astro.props;
 
-const SITE_URL = "https://checkbog.com"; // ← actualizar si el dominio cambia
+const SITE_URL = "https://www.checkbog.com";
 const WA_URL = "https://wa.me/50661359054?text=Hola%2C%20quiero%20revisar%20mi%20web%20gratis";
 ---
 <!DOCTYPE html>
@@ -36,6 +36,7 @@ const WA_URL = "https://wa.me/50661359054?text=Hola%2C%20quiero%20revisar%20mi%2
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${SITE_URL}/og-image.png`} />
+    <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0B1F3A" />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -47,10 +48,7 @@ const WA_URL = "https://wa.me/50661359054?text=Hola%2C%20quiero%20revisar%20mi%2
       "description": description,
       "telephone": "+50661359054",
       "email": "consultas@checkbog.com",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Costa Rica"
-      },
+      "areaServed": "Worldwide",
       "serviceType": [
         "Diseño web",
         "Mantenimiento web",
@@ -58,7 +56,7 @@ const WA_URL = "https://wa.me/50661359054?text=Hola%2C%20quiero%20revisar%20mi%2
         "Gestión de redes sociales",
         "Seguridad web"
       ],
-      "priceRange": "₡₡",
+      "priceRange": "$$",
       "sameAs": [
         "https://wa.me/50661359054"
       ]
