@@ -11,7 +11,7 @@ const {
 } = Astro.props;
 
 const SITE_URL = "https://checkbog.com"; // ← actualizar si el dominio cambia
-const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%20web%20gratis";
+const WA_URL = "https://wa.me/50661359054?text=Hola%2C%20quiero%20revisar%20mi%20web%20gratis";
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -26,21 +26,27 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={SITE_URL} />
-    <meta property="og:image" content={`${SITE_URL}/og-image.svg`} />
+    <meta property="og:site_name" content="Checkbog" />
+    <meta property="og:locale" content="es_CR" />
+    <meta property="og:image" content={`${SITE_URL}/og-image.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Checkbog — Tu presencia digital, conectada y funcionando" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE_URL}/og-image.png`} />
     <meta name="theme-color" content="#0B1F3A" />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Checkbog",
       "url": SITE_URL,
-      "logo": `${SITE_URL}/og-image.svg`,
-      "image": `${SITE_URL}/og-image.svg`,
+      "logo": `${SITE_URL}/og-image.png`,
+      "image": `${SITE_URL}/og-image.png`,
       "description": description,
-      "telephone": "+50661739195",
-      "email": "checkbogservices@gmail.com",
+      "telephone": "+50661359054",
+      "email": "consultas@checkbog.com",
       "areaServed": {
         "@type": "Country",
         "name": "Costa Rica"
@@ -54,7 +60,7 @@ const WA_URL = "https://wa.me/50661739195?text=Hola%2C%20quiero%20revisar%20mi%2
       ],
       "priceRange": "₡₡",
       "sameAs": [
-        "https://wa.me/50661739195"
+        "https://wa.me/50661359054"
       ]
     })} />
     <!-- Favicon inline SVG -->
